@@ -7,4 +7,17 @@ body{
     background-color: rgba(0,255,0,0.8) !important;
 }#secondsub{
     display:none;
-}
+}table {
+    table-layout: fixed;
+    width: 100%;
+  }
+  
+  td, th {
+    word-wrap: break-word;
+    white-space: normal; 
+  }
+  
+  tbody td {
+    overflow-wrap: break-word;
+  }
+  
