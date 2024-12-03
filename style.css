@@ -1,0 +1,10 @@
+body{
+    width:100vw;
+    height:100vh;
+}button{
+    background-color:rgba(255,0,0,0.8);
+}.greenbtn{
+    background-color: rgba(0,255,0,0.8) !important;
+}#secondsub{
+    display:none;
+}
