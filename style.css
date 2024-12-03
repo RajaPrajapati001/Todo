@@ -8,16 +8,31 @@ body{
 }#secondsub{
     display:none;
 }table {
-    table-layout: fixed;
-    width: 100%;
+    table-layout: fixed; /* Table ke columns ko fixed-width banata hai */
+    width: 100%; /* Table ko screen ke size ke hisaab se adjust karta hai */
+    border-collapse: collapse; /* Table borders ko sahi dikhata hai */
   }
   
   td, th {
-    word-wrap: break-word;
-    white-space: normal; 
+    word-wrap: break-word; /* Text wrapping enable karta hai */
+    white-space: normal; /* Text ko wrap hone ki permission deta hai */
+    padding: 8px; /* Table cells ke andar gap deta hai */
+    text-align: left; /* Text ko left align karta hai */
+    border: 1px solid #ddd; /* Table cells ke bich border add karta hai */
   }
   
   tbody td {
-    overflow-wrap: break-word;
+    overflow-wrap: break-word; /* Extra long words ko wrap karne ke liye */
   }
+  
+  @media (max-width: 768px) {
+    table {
+      font-size: 14px; /* Mobile devices ke liye smaller font */
+    }
+  
+    td, th {
+      white-space: normal; /* Mobile me text wrapping ke liye */
+    }
+  }
+  
   
