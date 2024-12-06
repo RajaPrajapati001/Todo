@@ -15,19 +15,15 @@
             <div class="d-flex m-auto w-75" role="search">
                 <input class="form-control me-2 w-75" type="search" placeholder="Enter Course" id="enter" aria-label="Search" required>
                 <button class="btn btn-outline-primary w-25 p-0 p-sm-auto" id="firstsub" type="submit" onclick="add()">Add Course</button>
-                <button class="btn btn-outline-primary w-25 p-0 p-sm-auto" id="secondsub" type="submit" onclick="update()">Update</button>
+                <button class="btn update-btn btn-outline-primary w-25 p-0 p-sm-auto" id="secondsub" type="submit" onclick="update()">Update</button>
             </div>
-            <table class="table w-75 m-auto">
-                <thead>
-                  <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Course</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody id="tbody">
-                </tbody>
-              </table>
+<div>               <div class="row fw-medium">
+  <div class="col-2">Id</div>
+  <div class="col-6">Course</div>
+  <div class="col-4">Action</div>
+</div>
+            <div id="tbody"></div>
+              </div>
               </div>
         </div>
     </div>

@@ -37,12 +37,16 @@ function add() {
   }
 }
 function createrow(rndm, text) {
-  const row = document.createElement("tr");
+  const row = document.createElement("div");
+  row.className="row mt-3";
   row.id = rndm;
-  const col1 = document.createElement("td");
-  const col2 = document.createElement("td");
+  const col1 = document.createElement("div");
+  col1.className="col-2 p-0";
+  const col2 = document.createElement("div");
+  col2.className="col-6 p-0";
   col2.id = `${rndm}uq`;
-  const col3 = document.createElement("td");
+  const col3 = document.createElement("div");
+  col3.className="col-4 p-0";
   const btn = document.createElement("button");
   btn.setAttribute("style", "border-radius:7px");
   btn.innerHTML = "edit";
@@ -51,7 +55,7 @@ function createrow(rndm, text) {
   });
   btn.classList.add("greenbtn");
   btn.style.width = "43%";
-  btn.style.height = "100%";
+  btn.style.height = "35px";
   const btn1 = document.createElement("button");
   btn1.setAttribute("style", "border-radius:7px");
   btn1.innerHTML = "Delete";
@@ -59,7 +63,7 @@ function createrow(rndm, text) {
     del(rndm);
   });
   btn1.style.width = "55%";
-  btn1.style.height = "100%";
+  btn1.style.height = "35px";
   col3.style.display = "flex";
   col3.style.justifyContent = "space-between";
   col1.innerText = `${rndm}`;
