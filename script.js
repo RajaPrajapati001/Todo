@@ -1,120 +1,83 @@
-var mydiv = document.getElementById("tbody");
-var isEdit = false;
-var edi = null;
-let updateText = "";
+// toggle icon navbar
+let menuIcon = document.querySelector('#menu-icon');
+let navbar = document.querySelector('.navbar');
 
-window.onload = function () {
-  for (let i = 0; i < localStorage.length; i++) {
-    createrow(localStorage.key(i), localStorage.getItem(localStorage.key(i)));
-  }
-};
-var enterKey = document.getElementById("enter");
-enterKey.addEventListener("keypress", function (e) {
-  if (e.key == "Enter" && enterKey.value != "") {
-    if (isEdit == true) {
-      update();
-    } else {
-      e.preventDefault();
-      add();
-    }
-  }
+menuIcon.onclick = () => {
+    menuIcon.classList.toggle('bx-x');
+    navbar.classList.toggle('active');
+}
+
+// scroll sections
+let sections = document.querySelectorAll('section');
+let navLinks = document.querySelectorAll('header nav a');
+
+window.onscroll = () => {
+    sections.forEach(sec => {
+        let top = window.scrollY;
+        let offset = sec.offsetTop - 10;
+        let height = sec.offsetHeight;
+        let id = sec.getAttribute('id');
+
+        if(top >= offset && top < offset + height) {
+            // active navbar links
+            navLinks.forEach(links => {
+                links.classList.remove('active');
+                document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
+            });
+            // active sections for animation on scroll
+            sec.classList.add('show-animate');
+        }
+        // if want to animation that repeats on scroll use this
+        else {
+            sec.classList.remove('show-animate');
+        }
+    });
+
+    // sticky navbar
+    let header = document.querySelector('header');
+
+    header.classList.toggle('sticky', window.scrollY > 10);
+
+    // remove toggle icon and navbar when click navbar links (scroll)
+    menuIcon.classList.remove('bx-x');
+    navbar.classList.remove('active');
+
+    // animation footer on scroll
+    let footer = document.querySelector('footer');
+
+    footer.classList.toggle('show-animate', this.innerHeight + this.scrollY >= document.scrollingElement.scrollHeight);
+}
+ document.querySelector('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const name = document.querySelector('input[placeholder="Full Name"]').value;
+    const email = document.querySelector('input[placeholder="Email"]').value;
+    const message = document.querySelector('textarea').value;
+
+    const webhookUrl = "https://hook.eu2.make.com/rug2zxcui3u9501fwbwxjnkzyk739kx5";
+
+    const data = {
+        name: name,
+        email: email,
+        message: message
+    };
+
+    fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("Thanks to connect with me!");
+        } else {
+            alert("failed to send email!");
+        }
+    })
+    .catch(error => {
+        alert("Error sending an email!");
+        console.error(error);
+    });
 });
-
-function save(rndm, text) {
-  localStorage.setItem(rndm, text);
-}
-
-function add() {
-  if (enterKey.value == "") {
-    alert("please enter value");
-  } else {
-    let min = 10000;
-    let max = 50000;
-    var rndm = Math.floor(Math.random() * (max - min) + min);
-    var text = document.getElementById("enter").value;
-    createrow(rndm, text);
-    enterKey.value = "";
-  }
-}
-function createrow(rndm, text) {
-  const row = document.createElement("div");
-  row.className="row mt-3";
-  row.id = rndm;
-  const col1 = document.createElement("div");
-  col1.className="col-2 p-0";
-  const col2 = document.createElement("div");
-  col2.className="col-6 p-0";
-  col2.id = `${rndm}uq`;
-  const col3 = document.createElement("div");
-  col3.className="col-4 p-0";
-  const btn = document.createElement("button");
-  btn.setAttribute("style", "border-radius:7px");
-  btn.innerHTML = "edit";
-  btn.addEventListener("click", function () {
-    edit(rndm, updateText);
-  });
-  btn.classList.add("greenbtn");
-  btn.style.width = "43%";
-  btn.style.height = "35px";
-  const btn1 = document.createElement("button");
-  btn1.setAttribute("style", "border-radius:7px");
-  btn1.innerHTML = "Delete";
-  btn1.addEventListener("click", function () {
-    del(rndm);
-  });
-  btn1.style.width = "55%";
-  btn1.style.height = "35px";
-  col3.style.display = "flex";
-  col3.style.justifyContent = "space-between";
-  col1.innerText = `${rndm}`;
-  col2.innerText = `${text}`;
-  col3.appendChild(btn);
-  col3.appendChild(btn1);
-  mydiv.appendChild(row);
-  row.appendChild(col1);
-  row.appendChild(col2);
-  row.appendChild(col3);
-  updateText = col2.innerText;
-  save(rndm, text);
-}
-function del(rndm) {
-  var ran = rndm.toString();
-  const id = document.getElementById(ran);
-  id.remove();
-  for (let j = 0; j < localStorage.length; j++) {
-    if (localStorage.key(j) == ran) {
-      let mykey = localStorage.key(j);
-      localStorage.removeItem(mykey);
-    }
-  }
-}
-function edit(number) {
-  firstsub.style.display = "none";
-  secondsub.style.display = "inline-block";
-  isEdit = true;
-  const input = document.getElementById("enter");
-  edi = `${number}uq`;
-  const newtxt = document.getElementById(edi);
-  let tex = newtxt.innerText;
-  input.value = tex;
-  input.focus();
-}
-function update() {
-  if (enterKey.value == "") {
-    alert("please enter value");
-  } else {
-    firstsub.style.display = "inline-block";
-    secondsub.style.display = "none";
-    const element = document.getElementById(edi);
-    const input = document.getElementById("enter");
-    element.innerHTML = input.value;
-    const id = edi.replace("uq", "");
-    for (let k = 0; k < localStorage.length; k++) {
-      if (localStorage.key(k) == id) {
-        localStorage.setItem(localStorage.key(k), input.value);
-      }
-    }
-    enterKey.value = "";
-  }
-  isEdit = false;
-}
